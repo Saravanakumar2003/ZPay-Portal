@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
+import { db } from '../firebase'; // Add this import
+import { collection, addDoc } from 'firebase/firestore'; // Add this import
 
 function Pay() {
     const [user, loading] = useAuthState(auth);
@@ -15,7 +17,6 @@ function Pay() {
         phone: '',
     });
 
-    const [ZPaymentsReady, setZPaymentsReady] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
     const [sessionId, setSessionId] = useState(null); // Store session ID
 
@@ -24,28 +25,6 @@ function Pay() {
             navigate('/login');
         }
     }, [user, loading]);
-
-    useEffect(() => {
-        const loadSDK = () => {
-            const script = document.createElement('script');
-            script.src = 'https://static.zohocdn.com/zpay/zpay-js/v1/zpayments.js';
-            script.async = true;
-            script.onload = () => {
-                if (window.ZPayments) {
-                    console.log('✅ ZPayments SDK loaded');
-                    setZPaymentsReady(true);
-                } else {
-                    console.error('❌ ZPayments not available after script load');
-                }
-            };
-            script.onerror = () => console.error('Failed to load Zoho Payments SDK');
-            document.body.appendChild(script);
-        };
-
-        // Only load if not already loaded
-        if (!window.ZPayments) loadSDK();
-        else setZPaymentsReady(true);
-    }, []);
 
     // Generate payment session ID first
     const generatePaymentSession = async () => {
@@ -93,9 +72,6 @@ function Pay() {
             // Always generate session ID first
             const sessionId = await generatePaymentSession();
             console.log('Payment session ID:', sessionId);
-            if (!ZPaymentsReady) {
-                throw new Error('ZPayments SDK not ready');
-            }
             if (!sessionId) {
                 throw new Error('No payment session ID returned');
             }
@@ -124,6 +100,16 @@ function Pay() {
                     email,
                     phone,
                 },
+            });
+
+            await addDoc(collection(db, "transactions"), {
+                userId: user ? user.uid : null,
+                amount,
+                description,
+                name,
+                email,
+                phone,
+                timestamp: new Date(),
             });
 
             await instance.close();
@@ -185,7 +171,6 @@ function Pay() {
 
                 <button
                     type="submit"
-                    disabled={!ZPaymentsReady || isProcessing}
                     className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition w-full"
                 >
                     {isProcessing ? 'Processing...' : 'Pay Now'}
