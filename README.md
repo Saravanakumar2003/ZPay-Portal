@@ -13,3 +13,6 @@ If you are developing a production application, we recommend using TypeScript wi
 
 
 Scope: ZohoPay.customers.CREATE, ZohoPay.customers.READ, ZohoPay.refunds.CREATE, ZohoPay.refunds.READ,ZohoPay.payments.CREATE, ZohoPay.payments.READ,ZohoPay.paymentmethods.CREATE,ZohoPay.paymentmethods.READ, ZohoPay.paymentmethods.UPDATE, ZohoPay.paymentmethods.DELETE
+
+
+This application follows Mountain time zone (UTC-7) for all date and time related operations.

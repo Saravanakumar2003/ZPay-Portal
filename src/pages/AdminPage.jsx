@@ -14,6 +14,10 @@ function Admin() {
         navigate('/transactions');
     };
 
+    const handleViewCustomers = () => {
+        navigate('/customers');
+    };
+
     const handlelogout = async () => {
         try {
             await signOut(auth);
@@ -40,6 +44,18 @@ function Admin() {
                             View History
                         </button>
                     </div>
+
+                    <div className="bg-white shadow-lg rounded-2xl p-6 border hover:shadow-xl transition">
+                        <h2 className="text-xl font-semibold text-gray-800 mb-2">Charge Customer</h2>
+                        <p className="text-gray-600 mb-4">Initiate a payment for a customer.</p>
+                        <button
+                            onClick={handleViewCustomers}
+                            className="bg-purple-600 hover:bg-purple-700 text-white font-medium px-4 py-2 rounded-xl"
+                        >
+                            Charge Customer
+                        </button>
+                    </div>
+
                     <div className="bg-white shadow-lg rounded-2xl p-6 border hover:shadow-xl transition">
                         <h2 className="text-xl font-semibold text-gray-800 mb-2">Logout</h2>
                         <p className="text-gray-600 mb-4">Exit the portal securely.</p>
