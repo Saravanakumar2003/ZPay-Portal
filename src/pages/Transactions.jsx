@@ -8,7 +8,7 @@ function Transactions() {
 
   useEffect(() => {
     const fetchTransactions = async () => {
-      const q = query(collection(db, "transactions"), orderBy("timestamp", "desc"));
+      const q = query(collection(db, "transactions"));
       const querySnapshot = await getDocs(q);
       const data = querySnapshot.docs.map(doc => ({
         id: doc.id,
@@ -29,34 +29,34 @@ function Transactions() {
         <table className="min-w-full border">
           <thead>
             <tr className="bg-gray-100">
+              <th className="py-2 px-4 border">Timestamp</th>
               <th className="py-2 px-4 border">Amount</th>
               <th className="py-2 px-4 border">Description</th>
               <th className="py-2 px-4 border">Name</th>
               <th className="py-2 px-4 border">Email</th>
               <th className="py-2 px-4 border">Phone</th>
-              <th className="py-2 px-4 border">Timestamp</th>
-              <th className="py-2 px-4 border">User ID</th>
+              <th className="py-2 px-4 border">Type</th>
             </tr>
           </thead>
           <tbody>
             {transactions.map(txn => (
               <tr key={txn.id}>
-                <td className="py-2 px-4 border">{txn.amount}</td>
-                <td className="py-2 px-4 border">{txn.description}</td>
-                <td className="py-2 px-4 border">{txn.name}</td>
-                <td className="py-2 px-4 border">{txn.email}</td>
-                <td className="py-2 px-4 border">{txn.phone}</td>
                 <td className="py-2 px-4 border">
                   {txn.timestamp?.toDate
                     ? txn.timestamp.toDate().toLocaleString()
                     : new Date(txn.timestamp).toLocaleString()}
                 </td>
-                <td className="py-2 px-4 border">{txn.userId || "N/A"}</td>
+                <td className="py-2 px-4 border">{txn.amount}</td>
+                <td className="py-2 px-4 border">{txn.description}</td>
+                <td className="py-2 px-4 border">{txn.name}</td>
+                <td className="py-2 px-4 border">{txn.email}</td>
+                <td className="py-2 px-4 border">{txn.phone}</td>
+                <td className="py-2 px-4 border">{txn.type}</td>
               </tr>
             ))}
             {transactions.length === 0 && (
               <tr>
-                <td colSpan={7} className="text-center py-4">No transactions found.</td>
+                <td colSpan={8} className="text-center py-4">No transactions found.</td>
               </tr>
             )}
           </tbody>

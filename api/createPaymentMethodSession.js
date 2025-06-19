@@ -20,9 +20,6 @@ export default async function handler(req, res) {
     if (!accessToken) {
         return res.status(500).json({ error: 'No access token received from Zoho' });
     }
-    console.log('Zoho Access Token:', accessToken); // Debugging line
-    console.log('Creating payment method session for customer ID:', customer_Id); // Debugging line
-    console.log('Description:', description); // Debugging line
 
     const sessionRes = await fetch(`https://payments.zoho.com/api/v1/paymentmethodsessions?account_id=${process.env.ZOHO_ACCOUNT_ID}`, {
         method: 'POST',
@@ -35,14 +32,12 @@ export default async function handler(req, res) {
 
     if (!sessionRes.ok) {
         const errorData = await sessionRes.json();
-        console.error('Error creating payment method session:', errorData);
         return res.status(500).json({ error: 'Failed to create payment method session', details: errorData });
     }
 
 
     const sessionData = await sessionRes.json();
 
-    console.log('Payment Method Session Data:', sessionData); // Debugging line
     if (sessionData.code !== 0) {
         return res.status(500).json({ error: 'Failed to create payment method session', details: sessionData });
     }

@@ -71,7 +71,6 @@ function Pay() {
         try {
             // Always generate session ID first
             const sessionId = await generatePaymentSession();
-            console.log('Payment session ID:', sessionId);
             if (!sessionId) {
                 throw new Error('No payment session ID returned');
             }
@@ -92,7 +91,7 @@ function Pay() {
                 transaction_type: 'payment',
                 currency_code: 'USD',
                 payments_session_id: sessionId,
-                business: 'Zylker',
+                business: 'ZPay Portal',
                 description,
                 invoice_number: 'INV-' + Date.now(),
                 address: {
@@ -110,11 +109,12 @@ function Pay() {
                 email,
                 phone,
                 timestamp: new Date(),
+                type: 'Payment',
             });
 
             await instance.close();
         } catch (err) {
-            console.error('❌ Payment failed:', err);
+            console.error(' Payment failed:', err);
             // alert already shown in generatePaymentSession if session fails
             if (!err.message.includes('No payment session ID returned')) {
                 alert('Payment failed: ' + err.message);
