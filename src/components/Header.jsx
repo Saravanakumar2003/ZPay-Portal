@@ -3,9 +3,20 @@ import { useAuth } from "../context/AuthContext";
 import "../assets/css/HeaderFooter.css"
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
+import { useEffect, useState } from "react";
 
 function Header() {
     const { user } = useAuth();
+
+    const handleLogout = async () => {
+        try {
+            await signOut(auth);
+            window.location.href = "/"; 
+        } catch (error) {
+            console.error("Logout failed:", error);
+            alert("Failed to log out. Please try again.");
+        }
+    };
 
     return (
         <header className="header">
@@ -21,6 +32,8 @@ function Header() {
                             <Link to="/cards">Cards</Link>
                             <Link to="/transactions">Transactions</Link>
                             <Link to="/customers">Customers</Link>
+                            <Link to="/refund">Refund</Link>
+                            <button onClick={handleLogout}>Logout</button>
                         </>
                     ) : (
                         <>
@@ -28,13 +41,8 @@ function Header() {
                             <Link to="/signup">Signup</Link>
                         </>
                     )}
-                    {user && (
-                        <Link to="/" onClick={() => signOut(auth)}>
-                            Logout
-                        </Link>
-                    )}
-
                 </nav>
+
             </div>
         </header>
     );

@@ -26,11 +26,13 @@
 .header-nav {
   display: flex;
   gap: 1rem;
+  padding: 5px 0;
 }
 
 .header-nav a {
   text-decoration: none;
   color: white;
+  padding: 5px 0;
   transition: color 0.3s;
 }
 

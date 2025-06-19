@@ -1,0 +1,113 @@
+/* General container styling */
+.max-w-4xl {
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+/* Table container */
+.overflow-x-auto {
+  overflow-x: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+thead tr {
+  background-color: #f3f4f6; /* Light gray background */
+}
+
+th, td {
+  padding: 0.75rem 1rem;
+  border: 1px solid #e5e7eb; /* Light border */
+  text-align: left;
+  font-size: 0.875rem;
+}
+
+th {
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #374151; /* Dark gray text */
+  cursor: pointer;
+}
+
+th:hover {
+  background-color: #e5e7eb; /* Slight hover effect */
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9fafb; /* Alternate row color */
+}
+
+tbody tr:hover {
+  background-color: #f1f5f9; /* Hover effect */
+}
+
+td {
+  color: #4b5563; /* Medium gray text */
+}
+
+input{
+    width: 50%;
+    margin: 0 auto;
+    display: block;
+    padding: 0.5rem 1rem;
+    border: 1px solid #d1d5db; /* Light gray border */
+    border-radius: 4px;
+}
+
+/* Search input styling */
+input[type="text"] {
+  width: 50%;
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  color: #fff;
+  border-color: #3b82f6; /* Blue border on focus */
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3); /* Blue focus ring */
+}
+
+/* Loading text */
+.text-center {
+  text-align: center;
+  color: #6b7280; /* Gray text */
+  font-size: 1rem;
+  margin-top: 2rem;
+}
+
+/* Table header sorting icons */
+th span {
+  margin-left: 0.5rem;
+  font-size: 0.75rem;
+  color: #9ca3af; /* Light gray text */
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+  th, td {
+    font-size: 0.75rem;
+    padding: 0.5rem;
+  }
+
+  input[type="text"] {
+    font-size: 0.75rem;
+    padding: 0.5rem;
+  }
+}
+
+.transaction h2{
+    text-align: center;
+}

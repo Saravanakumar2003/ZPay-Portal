@@ -10,6 +10,7 @@ import Transactions from "./pages/Transactions";
 import Admin from "./pages/AdminPage";
 import Cards from "./pages/Cards";
 import Customer from "./pages/Customers";
+import Refund from "./pages/Refund";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect, useState } from "react";
@@ -74,6 +75,14 @@ function App() {
             element={
               <ProtectedRoute requiredRole="admin">
                 <Customer />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/refund"
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <Refund />
               </ProtectedRoute>
             }
           />
